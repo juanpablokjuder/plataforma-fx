@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: fx_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: fxdb
+      MYSQL_USER: fxuser
+      MYSQL_PASSWORD: fxpass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ../sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+
+  db-init:
+    image: mysql:8.0
+    container_name: fx_db_init
+    depends_on:
+      - db
+    volumes:
+      - ../sql:/sql:ro
+    entrypoint: ["/bin/sh","-c"]
+    command: |
+      "until mysqladmin ping -h db -uroot -proot123 --silent; do sleep 1; done; \
+      mysql -h db -uroot -proot123 fxdb < /sql/init.sql || true"
+
+  api:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: fx_api
+    restart: unless-stopped
+    volumes:
+      - ../src/api:/var/www/html:cached
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: fxdb
+      DB_USER: fxuser
+      DB_PASS: fxpass
+    depends_on:
+      - db
+
+  front:
+    image: nginx:stable-alpine
+    container_name: fx_front
+    restart: unless-stopped
+    volumes:
+      - ../src/public:/usr/share/nginx/html:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  ws:
+    build:
+      context: ./ws
+      dockerfile: Dockerfile
+    container_name: fx_ws
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    depends_on:
+      - api
+
+volumes:
+  db_data:

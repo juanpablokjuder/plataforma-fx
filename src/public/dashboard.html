@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma FX - Panel</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header class="header-container">
+        <h1>Plataforma FX - Panel</h1>
+        <div class="userInfo" id="userInfo">
+            <div>
+                <span id="usernameDisplay">Juan</span>
+               <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                viewBox="0 0 24 24"
+                fill="#111"
+                >
+                <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                <path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" />
+                </svg>
+            </div>
+            <button id="logoutBtn" class="btn red">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <button id="sendAll" class="btn">Enviar configuraciones</button>
+        <table id="instruments" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Precio objetivo</th>
+                    <th>Cantidad (config)</th>
+                    <th>Operación</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </main>
+
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
