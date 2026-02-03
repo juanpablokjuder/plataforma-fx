@@ -24,7 +24,7 @@ Tecnologías
 - Base de datos: scripts SQL en `sql/init.sql` (inicializador)
 - Frontend: HTML, CSS, JavaScript
 - Backend: PHP (endpoints simples en `src/api`)
- - Websockets: Python (servicio en `docker/ws`) — comunicación en tiempo real vía WebSocket
+- Websockets: Python (servicio en `docker/ws`) — comunicación en tiempo real vía WebSocket
 - Contenerización: Docker y Docker Compose
 - Base de datos: scripts SQL en `sql/init.sql` (inicializador)
 
@@ -62,4 +62,4 @@ docker compose up -d
 docker compose ps
 ```
 
-4. Abrir la aplicación en un navegador: `http://localhost/` (puerto por defecto 80). Si su entorno usa otro puerto, consulte `docker/docker-compose.yml`.
+4. Abrir la aplicación en un navegador: `http://localhost:8080/` (puerto por defecto 8080). Si su entorno usa otro puerto, consulte `docker/docker-compose.yml`.
